@@ -6,6 +6,7 @@ import com.sparta.springtodo.dto.PostUpdateRequestDto;
 import com.sparta.springtodo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,10 +40,11 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
-    public PostResponseDto updatePost(
-            @PathVariable Long postId
+    public ResponseEntity<PostResponseDto> updatePost(
+            @PathVariable Long postId,
             @RequestBody PostUpdateRequestDto requestDto
     ) {
-        return postService.updatePost(postId, requestDto;
+        PostResponseDto responseDto = postService.updatePost(postId, requestDto);
+        return ResponseEntity.ok(responseDto);
     }
 }
