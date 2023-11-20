@@ -47,4 +47,13 @@ public class PostController {
         PostResponseDto responseDto = postService.updatePost(postId, requestDto);
         return ResponseEntity.ok(responseDto);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{postId}")
+    public void deletePost(
+            @PathVariable Long postId,
+            @RequestHeader("password") String password
+    ) {
+        postService.deletePost(postId, password);
+    }
 }
