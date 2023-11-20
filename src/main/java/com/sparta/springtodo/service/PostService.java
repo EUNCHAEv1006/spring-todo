@@ -4,10 +4,10 @@ import com.sparta.springtodo.controller.exception.PostNotFoundException;
 import com.sparta.springtodo.dto.PostAddRequestDto;
 import com.sparta.springtodo.dto.PostResponseDto;
 import com.sparta.springtodo.dto.PostUpdateRequestDto;
+import com.sparta.springtodo.controller.exception.AuthorizeException;
 import com.sparta.springtodo.entity.PostEntity;
 import com.sparta.springtodo.repository.PostJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +61,7 @@ public class PostService {
 
     private static void verifyPassword(PostEntity postEntity, String password) {
         if(!postEntity.passwordMatches(password)) {
-            throw new NullPointerException("비밀번호가 일치하지 않습니다.");
+            throw new AuthorizeException("비밀번호가 일치하지 않습니다.");
         }
     }
 }

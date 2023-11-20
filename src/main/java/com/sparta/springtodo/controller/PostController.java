@@ -1,5 +1,6 @@
 package com.sparta.springtodo.controller;
 
+import com.sparta.springtodo.controller.exception.AuthorizeException;
 import com.sparta.springtodo.controller.exception.PostNotFoundException;
 import com.sparta.springtodo.dto.PostAddRequestDto;
 import com.sparta.springtodo.dto.PostResponseDto;
@@ -66,6 +67,16 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorResponseDto(
                         HttpStatus.NOT_FOUND.value(),
+                        ex.getMessage()
+                )
+        );
+    }
+
+    @ExceptionHandler(AuthorizeException.class)
+    public ResponseEntity<ErrorResponseDto> postNotFoundExceptionHandler(AuthorizeException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ErrorResponseDto(
+                        HttpStatus.UNAUTHORIZED.value(),
                         ex.getMessage()
                 )
         );
