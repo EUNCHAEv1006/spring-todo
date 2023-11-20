@@ -1,11 +1,13 @@
 package com.sparta.springtodo.service;
 
+import com.sparta.springtodo.controller.exception.PostNotFoundException;
 import com.sparta.springtodo.dto.PostAddRequestDto;
 import com.sparta.springtodo.dto.PostResponseDto;
 import com.sparta.springtodo.dto.PostUpdateRequestDto;
 import com.sparta.springtodo.entity.PostEntity;
 import com.sparta.springtodo.repository.PostJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +56,7 @@ public class PostService {
 
     private PostEntity getPostEntity(Long postId) {
         return postJpaRepository.findById(postId)
-                .orElseThrow(() -> new NullPointerException("해당 게시글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new PostNotFoundException("해당 게시글을 찾을 수 없습니다."));
     }
 
     private static void verifyPassword(PostEntity postEntity, String password) {

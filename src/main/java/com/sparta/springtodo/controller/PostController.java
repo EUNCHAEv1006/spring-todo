@@ -1,8 +1,10 @@
 package com.sparta.springtodo.controller;
 
+import com.sparta.springtodo.controller.exception.PostNotFoundException;
 import com.sparta.springtodo.dto.PostAddRequestDto;
 import com.sparta.springtodo.dto.PostResponseDto;
 import com.sparta.springtodo.dto.PostUpdateRequestDto;
+import com.sparta.springtodo.dto.exception.ErrorResponseDto;
 import com.sparta.springtodo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,7 +51,6 @@ public class PostController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(
             @PathVariable Long postId,
@@ -57,5 +58,16 @@ public class PostController {
     ) {
         postService.deletePost(postId, password);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> postNotFoundExceptionHandler(PostNotFoundException ex) {
+//        System.err.println(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ErrorResponseDto(
+                        HttpStatus.NOT_FOUND.value(),
+                        ex.getMessage()
+                )
+        );
     }
 }
