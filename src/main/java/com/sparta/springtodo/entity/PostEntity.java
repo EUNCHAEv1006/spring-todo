@@ -1,6 +1,7 @@
 package com.sparta.springtodo.entity;
 
 import com.sparta.springtodo.dto.PostAddRequestDto;
+import com.sparta.springtodo.dto.PostUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,6 +27,12 @@ public class PostEntity extends  TimeEntity{
         this.title = requestDto.getTitle();
         this.author = requestDto.getAuthor();
         this.password = requestDto.getPassword();
+        this.contents = requestDto.getContent();
+    }
+
+    public void update(PostUpdateRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.author = requestDto.getAuthor();
         this.contents = requestDto.getContent();
     }
 }

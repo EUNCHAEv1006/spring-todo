@@ -2,6 +2,7 @@ package com.sparta.springtodo.controller;
 
 import com.sparta.springtodo.dto.PostAddRequestDto;
 import com.sparta.springtodo.dto.PostResponseDto;
+import com.sparta.springtodo.dto.PostUpdateRequestDto;
 import com.sparta.springtodo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,5 +36,13 @@ public class PostController {
     @GetMapping
     public List<PostResponseDto> getPosts() {
         return postService.getPosts();
+    }
+
+    @PatchMapping("/{postId}")
+    public PostResponseDto updatePost(
+            @PathVariable Long postId
+            @RequestBody PostUpdateRequestDto requestDto
+    ) {
+        return postService.updatePost(postId, requestDto;
     }
 }
