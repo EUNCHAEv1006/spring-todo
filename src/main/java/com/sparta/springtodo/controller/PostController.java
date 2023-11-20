@@ -19,24 +19,25 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public PostResponseDto addPost(
+    public ResponseEntity<PostResponseDto> addPost(
             @RequestBody PostAddRequestDto requestDto
             ) {
         PostResponseDto responseDto = postService.addPost(requestDto);
-        return responseDto;
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @GetMapping("/{postId}")
-    public PostResponseDto getPost(
+    public ResponseEntity<PostResponseDto> getPost(
             @PathVariable Long postId
     ) {
-        return postService.getPost(postId);
+        PostResponseDto responseDto = postService.getPost(postId);
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping
-    public List<PostResponseDto> getPosts() {
-        return postService.getPosts();
+    public  ResponseEntity<List<PostResponseDto>> getPosts() {
+        List<PostResponseDto> responseDto = postService.getPosts();
+        return ResponseEntity.ok(responseDto);
     }
 
     @PatchMapping("/{postId}")
@@ -50,10 +51,11 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{postId}")
-    public void deletePost(
+    public ResponseEntity<Void> deletePost(
             @PathVariable Long postId,
             @RequestHeader("password") String password
     ) {
         postService.deletePost(postId, password);
+        return ResponseEntity.noContent().build();
     }
 }
