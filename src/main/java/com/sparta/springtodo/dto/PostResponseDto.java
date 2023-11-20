@@ -2,6 +2,8 @@ package com.sparta.springtodo.dto;
 
 import com.sparta.springtodo.entity.PostEntity;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 

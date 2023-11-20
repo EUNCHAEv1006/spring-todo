@@ -22,4 +22,11 @@ public class PostController {
         PostResponseDto responseDto = postService.addPost(requestDto);
         return responseDto;
     }
+
+    @GetMapping("/{postId}")
+    public PostResponseDto getPost(
+            @PathVariable Long postId
+    ) {
+        return postService.getPost(postId);
+    }
 }
